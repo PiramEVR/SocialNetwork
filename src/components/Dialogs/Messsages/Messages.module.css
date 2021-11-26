@@ -1,0 +1,15 @@
+
+.messages {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.name {
+    color: #1C2B40;
+    text-decoration: none;
+}
+
+
+.message {
+    color: #1C2B40;
+}
