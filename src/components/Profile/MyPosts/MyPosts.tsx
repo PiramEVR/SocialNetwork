@@ -1,15 +1,25 @@
-import React from "react";
+import React, {FC} from "react";
 import s from './MyPosts.module.css';
 import Post from "../Post/Post";
 
-function MyPosts() {
+
+export type MyPostsPropsType = {
+    posts :[ {
+        id: number | null,
+        message: string | null,
+        likesCount: number| null
+    }]
+}
+
+
+function MyPosts(props: MyPostsPropsType) {
+    let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+
     return (
         <div className={s.MyPost}>
             <input type='textarea'/>
             <button>Post</button>
-            <Post message='Hi' like={3}/>
-            <Post message='Hello' like={10}/>
-            <Post message='How are you' like={4}/>
+            {postsElements}
         </div>
     )
 }
