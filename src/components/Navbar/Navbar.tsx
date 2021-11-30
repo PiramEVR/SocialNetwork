@@ -20,6 +20,9 @@ function Navbar(props: any) {
             <div className={`${s.link} ${s.active}`}>
                 <NavLink className={navData => navData.isActive ? s.active : s.item}  to='/Settings'>Settings</NavLink>
             </div>
+            <div className={`${s.link} ${s.active}`}>
+                <NavLink className={navData => navData.isActive ? s.active : s.item}  to='/Friends'>Friends</NavLink>
+            </div>
         </nav>
     )
 }

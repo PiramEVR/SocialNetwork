@@ -1,21 +1,19 @@
 import React from "react";
 import s from './Dialogs.module.css'
 import Messages from "./Messsages/Messages";
-
-let messages = [
-    {id: 1,name: 'Dim', message: 'Hey',},
-    {id: 2,name: 'San', message: 'Hello'},
-    {id: 3,name: 'Lin', message: 'Heghjghy'},
-    {id: 4,name: 'Jon', message: 'Hi sadfas sdgsg sg'},
-    {id: 5,name: 'Met', message: 'Hi sadgsag hdfh d'},
-]
-
-let dialogsElement = messages.map(d=><Messages name={d.name} message={d.message} id={d.id}/>);
+import Post from "../Profile/Post/Post";
 
 
-type DialogsPropsType = {}
+type DialogsPropsType = {
+    messages:[{
+        id: number | null
+        name: string | null
+        message: string | null
+    }]
+}
 
-function Dialogs(props: any) {
+function Dialogs(props: DialogsPropsType) {
+    let dialogsElement = props.messages.map(d=><Messages  key={d.id} name={d.name} message={d.message} id={d.id}/>);
     return (
         <div className={s.dialogs}>
             {dialogsElement}

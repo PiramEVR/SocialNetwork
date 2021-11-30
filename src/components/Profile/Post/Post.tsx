@@ -1,6 +1,5 @@
 import React from "react";
 import s from './Post.module.css';
-import {MyPostsPropsType} from "../MyPosts/MyPosts";
 
 type PostPropsType = {
     message: string | null;
