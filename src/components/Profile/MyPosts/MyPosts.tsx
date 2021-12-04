@@ -10,7 +10,7 @@ type MyPostsPropsType = {
             message: string | null,
             likesCount: number | null
         }],
-        newPostText: any
+        newPostText: string
     }
     addPost: any
     updateNewPostText: any

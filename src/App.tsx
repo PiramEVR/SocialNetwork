@@ -4,15 +4,16 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import News from "./components/News/News";
 import Music from "./components/Musik/Music";
 import Settings from "./components/Settings/Settings";
 import Friends from './components/Friends/Friends';
 
 function App(props: any) {
+    console.log(props.state)
     return (
-        <BrowserRouter>
+
             <div className='app-wrapper'>
                 <Header/>
                 <Navbar/>
@@ -22,7 +23,9 @@ function App(props: any) {
                                                                  addPost={props.addPost}
                                                                  updateNewPostText={props.updateNewPostText}/>}/>
 
-                        <Route path='/dialogs*' element={<Dialogs messages={props.state.messages}/>}/>
+                        <Route path='/dialogs*' element={<Dialogs dialogsPage={props.state.dialogsPage}
+                                                                  addMessage={props.addMessage}
+                                                                  updateNewMessage={props.updateNewMessage}/>}/>
                         <Route path='/News' element={<News/>}/>
                         <Route path='/Music' element={<Music/>}/>
                         <Route path='/Settings' element={<Settings/>}/>
@@ -30,9 +33,8 @@ function App(props: any) {
                     </Routes>
                 </div>
             </div>
-        </BrowserRouter>
-    );
 
+    );
 }
 
 export default App;
