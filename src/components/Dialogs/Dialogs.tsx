@@ -1,19 +1,19 @@
 import React from "react";
 import s from './Dialogs.module.css'
 import Messages from "./Messsages/Messages";
+import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/state";
 
 
 export type DialogsPropsType = {
     dialogsPage: {
         messages: [{
-            id: any;
-            name: any;
-            message: any;
+            id: number;
+            name: string;
+            message: string;
         }]
         newMessageText: string
     }
-    addMessage: any
-    updateNewMessage: any
+    dispatch: any
 }
 
 function Dialogs(props: DialogsPropsType) {
@@ -22,14 +22,14 @@ function Dialogs(props: DialogsPropsType) {
         name={d.name}
         message={d.message} id={d.id}/>);
     let newMessageElement: any = React.createRef();
-
     let newMessage = () => {
-        props.addMessage()
+        props.dispatch(addMessageActionCreator())
     }
 
     let onMessageChange = () => {
         let text = newMessageElement.current.value;
-        props.updateNewMessage(text)
+        let action = updateNewMessageActionCreator(text);
+        props.dispatch(action)
     }
     return (
 

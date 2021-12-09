@@ -1,16 +1,16 @@
 import React from "react";
 import s from './Profile.module.css'
-import MyPosts from "./MyPosts/MyPosts";
+import MyPosts, {MyPostsPropsType} from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 
-function Profile(props: any) {
+
+function Profile(props: MyPostsPropsType) {
     return (
         <div>
             <ProfileInfo/>
             <MyPosts profilePage={props.profilePage}
-                     addPost={props.addPost}
-                     updateNewPostText={props.updateNewPostText}/>
+                     dispatch={props.dispatch}/>
         </div>
     )
 }

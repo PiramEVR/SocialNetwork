@@ -1,9 +1,10 @@
 import React, {FC} from "react";
 import s from './MyPosts.module.css';
 import Post from "../Post/Post";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/state";
 
 
-type MyPostsPropsType = {
+export type MyPostsPropsType = {
     profilePage: {
         posts: [{
             id: number | null,
@@ -12,10 +13,11 @@ type MyPostsPropsType = {
         }],
         newPostText: string
     }
-    addPost: any
-    updateNewPostText: any
+    dispatch: any
 
 }
+
+
 
 
 function MyPosts(props: MyPostsPropsType) {
@@ -26,12 +28,13 @@ function MyPosts(props: MyPostsPropsType) {
     let newPostElement: any = React.createRef();
 
     let addPost = () => {
-        props.addPost();
+        props.dispatch(addPostActionCreator());
     }
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        props.updateNewPostText(text);
+        let action = updateNewPostTextActionCreator(text);
+        props.dispatch(action);
     }
 
     return (

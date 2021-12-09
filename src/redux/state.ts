@@ -1,4 +1,9 @@
-let store= {
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+const UPDATE_NEW_MESSAGE = 'UPDATE_NEW_MESSAGE';
+const ADD_MESSAGE = 'ADD_MESSAGE';
+const ADD_POST = 'ADD_POST';
+
+let store = {
     _state: {
 
         profilePage: {
@@ -22,12 +27,18 @@ let store= {
             newMessageText: ''
         }
     },
+    _callSubscriber() {
+    },
+
     getState() {
         return this._state;
     },
-    _callSubscriber() {
+    subscribe(observer: () => void) {
+        this._callSubscriber = observer;
     },
-    addPost() {
+
+
+    _addPost() {
         let newPost = {
             id: 6,
             message: this._state.profilePage.newPostText,
@@ -37,11 +48,11 @@ let store= {
         this._state.profilePage.newPostText = '';
         this._callSubscriber();
     },
-    updateNewPostText(newText: string) {
+    _updateNewPostText(newText: string) {
         this._state.profilePage.newPostText = newText;
         this._callSubscriber();
     },
-    addMessage() {
+    _addMessage() {
         let newMessage = {
             id: 6,
             name: 'Met spam',
@@ -51,15 +62,46 @@ let store= {
         this._state.dialogsPage.newMessageText = '';
         this._callSubscriber();
     },
-    updateNewMessage(newText: string) {
+    _updateNewMessage(newText: string) {
         this._state.dialogsPage.newMessageText = newText;
         this._callSubscriber();
     },
-    subscribe(observer: any) {
-        this._callSubscriber = observer;
-    },
+    dispatch(action: any) {
 
+
+        if (action.type === ADD_POST) {
+            this._addPost()
+        } else {
+
+            if (action.type === UPDATE_NEW_POST_TEXT) {
+                this._updateNewPostText(action.newText)
+            } else if (action.type === ADD_MESSAGE) {
+                this._addMessage()
+            } else if (action.type === UPDATE_NEW_MESSAGE) {
+                this._updateNewMessage(action.newText)
+            }
+        }
+
+
+    }
 }
 
+export const addPostActionCreator = () => {
+    return {
+        type: ADD_POST
+    }
+}
+export const addMessageActionCreator = () => {
+    return {
+        type: ADD_MESSAGE
+    }
+}
+
+export const updateNewPostTextActionCreator = (text: string) => {
+    return {type: UPDATE_NEW_POST_TEXT, newText: text}
+}
+export const updateNewMessageActionCreator = (text: string) => {
+    return {type: UPDATE_NEW_MESSAGE, newText: text}
+}
 
 export default store;

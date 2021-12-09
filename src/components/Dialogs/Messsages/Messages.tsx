@@ -1,7 +1,6 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './Messages.module.css'
-import {DialogsPropsType} from "../Dialogs";
 
 type MessagesPropsType = {
     message: string

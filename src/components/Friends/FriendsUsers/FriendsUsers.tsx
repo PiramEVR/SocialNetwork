@@ -8,7 +8,7 @@ type FriendsPropsType = {
 function FriendsUsers(props: FriendsPropsType) {
     return (
         <div className={s.friends}>
-            <img
+            <img alt={'avatar'}
                 src='https://www.pikpng.com/pngl/b/548-5488223_discover-ideas-about-henna-tattoo-stencils-samurai-logo.png'
             />
             {props.name}
