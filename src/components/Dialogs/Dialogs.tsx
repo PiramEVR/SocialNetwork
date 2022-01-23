@@ -1,19 +1,17 @@
 import React from "react";
 import s from './Dialogs.module.css'
 import Messages from "./Messsages/Messages";
-import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/state";
+import {
+    addMessageActionCreator,
+    DialogsActionTypes,
+    DialogsPageType,
+    updateNewMessageActionCreator
+} from "../../redux/dialogsReducer";
 
 
 export type DialogsPropsType = {
-    dialogsPage: {
-        messages: [{
-            id: number;
-            name: string;
-            message: string;
-        }]
-        newMessageText: string
-    }
-    dispatch: any
+    dialogsPage: DialogsPageType
+    dispatch: (action: DialogsActionTypes) => void
 }
 
 function Dialogs(props: DialogsPropsType) {

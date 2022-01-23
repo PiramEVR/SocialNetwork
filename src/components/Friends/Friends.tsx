@@ -4,10 +4,10 @@ import FriendsUsers from "./FriendsUsers/FriendsUsers";
 
 type FriendsPropsType = {
     dialogsPage: {
-        messages: [{
-            name: string | null;
-            id: number | null
-        }]
+        messages: Array<{
+            name: string
+            id: number
+        }>
     }
 }
 
