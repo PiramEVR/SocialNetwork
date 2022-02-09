@@ -38,6 +38,7 @@ let initialState: DialogsPageType = {
 const dialogsReducer = (state = initialState, action: any) => {
     switch (action.type) {
         case ADD_MESSAGE:
+
             let newMessage = {
                 id: 6,
                 name: 'Met spam',
@@ -54,6 +55,7 @@ const dialogsReducer = (state = initialState, action: any) => {
 }
 
 export const addMessageActionCreator = (): AddMessageActionType => {
+
     return {
         type: ADD_MESSAGE
     }

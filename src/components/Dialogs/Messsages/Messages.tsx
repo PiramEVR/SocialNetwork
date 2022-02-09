@@ -2,10 +2,10 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './Messages.module.css'
 
-type MessagesPropsType = {
-    message: string
-    name: string
+export type MessagesPropsType = {
     id: number
+    name: string
+    message: string
 }
 
 
