@@ -1,3 +1,5 @@
+import messages from "../components/Dialogs/Messsages/Messages";
+
 const UPDATE_NEW_MESSAGE = 'UPDATE_NEW_MESSAGE';
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
@@ -35,25 +37,33 @@ let initialState: DialogsPageType = {
     newMessageText: ''
 }
 
-const dialogsReducer = (state = initialState, action: any) => {
+const dialogsReducer = (state = initialState, action: DialogsActionTypes) => {
     switch (action.type) {
-        case ADD_MESSAGE:
+        case ADD_MESSAGE: {
+            let copyState = {...state}
             let newMessage = {
                 id: 6,
                 name: 'Met spam',
                 message: state.newMessageText,
             }
-            state.messages.push(newMessage);
-            state.newMessageText = '';
-            break;
-        case UPDATE_NEW_MESSAGE:
-            state.newMessageText = action.newText;
-            break;
+            copyState.messages=[...state.messages] ;
+            copyState.messages.push(newMessage);
+            copyState.newMessageText = '';
+            return copyState;
+        }
+
+        case UPDATE_NEW_MESSAGE: {
+            let copyState = {...state}
+            copyState.newMessageText = action.newText;
+            return copyState;
+        }
+
     }
     return state;
 }
 
 export const addMessageActionCreator = (): AddMessageActionType => {
+
     return {
         type: ADD_MESSAGE
     }

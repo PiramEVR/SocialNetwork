@@ -1,17 +1,13 @@
 import React from "react";
 import s from './Dialogs.module.css'
 import Messages from "./Messsages/Messages";
-import {
-    addMessageActionCreator,
-    DialogsActionTypes,
-    DialogsPageType,
-    updateNewMessageActionCreator
-} from "../../redux/dialogsReducer";
+import {DialogsPageType} from "../../redux/dialogsReducer";
 
 
 export type DialogsPropsType = {
     dialogsPage: DialogsPageType
-    dispatch: (action: DialogsActionTypes) => void
+    onMessageChange: (text: string) => void
+    newMessage: () => void
 }
 
 function Dialogs(props: DialogsPropsType) {
@@ -19,24 +15,14 @@ function Dialogs(props: DialogsPropsType) {
         key={d.id}
         name={d.name}
         message={d.message} id={d.id}/>);
-    let newMessageElement: any = React.createRef();
-    let newMessage = () => {
-        props.dispatch(addMessageActionCreator())
-    }
-
-    let onMessageChange = () => {
-        let text = newMessageElement.current.value;
-        let action = updateNewMessageActionCreator(text);
-        props.dispatch(action)
-    }
     return (
 
         <div className={s.dialogs}>
-            <input onChange={onMessageChange}
+            <input onChange={(e) => props.onMessageChange(e.currentTarget.value)}
                    type='textarea'
-                   ref={newMessageElement}
+                // ref={newMessageElement}
                    value={props.dialogsPage.newMessageText}/>
-            <button onClick={newMessage}>New message</button>
+            <button onClick={props.newMessage}>New message</button>
             {dialogsElement}
         </div>
     )

@@ -1,42 +1,62 @@
-import React, {FC} from "react";
-import s from './MyPosts.module.css';
-import Post from "../Post/Post";
+import React, {Dispatch, FC} from "react";
 import {
     addPostActionCreator,
     ProfileActionTypes,
-    ProfilePageType,
     updateNewPostTextActionCreator
 } from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
+import {GlobalState} from "../../../redux/redux-store";
+import { connect } from "react-redux";
 
 
-export type MyPostsContainerPropsType = {
-    profilePage: ProfilePageType
-    dispatch: (action: ProfileActionTypes)=>void
+// export type MyPostsContainerPropsType = {
+//     profilePage: ProfilePageType
+//     dispatch: (action: ProfileActionTypes)=>void
+//
+// }
+//
+//
+// function MyPostsContainer(props: MyPostsContainerPropsType) {
+//
+//
+//
+//     let addPost = () => {
+//
+//         props.dispatch(addPostActionCreator());
+//     }
+//
+//     let onPostChange = (text: string) => {
+//         let action = updateNewPostTextActionCreator(text);
+//         props.dispatch(action);
+//     }
+//
+//     return (
+//          <MyPosts  posts={props.profilePage.posts}
+//                   newPostText={props.profilePage.newPostText}
+//                   addPost={addPost}
+//                   updateNewPostText={onPostChange}/>
+//     )
+// }
 
+let mapStateToProps = (state: GlobalState) => {
+    return {
+        profilePage: state.profilePage
+    }
 }
 
 
-function MyPostsContainer(props: MyPostsContainerPropsType) {
-
-
-
-    let addPost = () => {
-
-        props.dispatch(addPostActionCreator());
+let mapDispatchToProps = (dispatch: Dispatch<ProfileActionTypes>) => {
+    return {
+        addPost:()=> {
+            dispatch(addPostActionCreator());
+        },
+        updateNewPostText:(text: string)=> {
+            dispatch(updateNewPostTextActionCreator(text))
+        }
     }
-
-    let onPostChange = (text: string) => {
-        let action = updateNewPostTextActionCreator(text);
-        props.dispatch(action);
-    }
-
-    return (
-         <MyPosts  posts={props.profilePage.posts}
-                  newPostText={props.profilePage.newPostText}
-                  addPost={addPost}
-                  updateNewPostText={onPostChange}/>
-    )
 }
+
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer;
