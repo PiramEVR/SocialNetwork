@@ -12,6 +12,7 @@ import {ProfileActionTypes, ProfilePageType} from "./redux/profileReducer";
 import {DialogsActionTypes, DialogsPageType} from "./redux/dialogsReducer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {GlobalState} from "./redux/redux-store";
+import UsersContainer from "./components/Users/UsersContainer";
 
 export type ActionsAllType = ProfileActionTypes | DialogsActionTypes
 
@@ -31,6 +32,7 @@ function App(props: AppPropsType) {
             <div className='app-wrapper-content'>
                 <Routes>
                     <Route path='/profile' element={<Profile />}/>
+                    <Route path='/users' element={<UsersContainer />}/>
 
                     <Route path='/dialogs/*' element={<DialogsContainer/>}/>
                     <Route path='/News' element={<News/>}/>

@@ -8,6 +8,9 @@ function Navbar(props: any) {
             <div >
                 <NavLink className={navData => navData.isActive ? s.active : s.item} to='/Profile'>Profile</NavLink>
             </div>
+            <div >
+                <NavLink className={navData => navData.isActive ? s.active : s.item} to='/Users'>Users</NavLink>
+            </div>
             <div className={`${s.link} ${s.active}`}>
                 <NavLink className={navData => navData.isActive ? s.active : s.item}  to='/Dialogs'>Messages</NavLink>
             </div>
