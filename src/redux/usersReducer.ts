@@ -3,17 +3,22 @@ const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 
 type LocationType = {
-    city: string
-    country: string
+    city?: string
+    country?: string
+}
+
+type PhotosType = {
+    small?: string | null
+    large?: string | null
 }
 
 export type UsersType = {
+    name: string
     id: number
-    photoUrl: string
-    followed: boolean
-    fullName: string
+    photos: PhotosType
     status: string
-    location: LocationType
+    followed: boolean
+    location?: LocationType
 }
 
 export type UsersPageType = {
@@ -32,41 +37,18 @@ export type unfollowActionType = {
 }
 export type usersActionType = {
     type: 'SET_USERS'
-    users: UsersType
+    users: UsersType[]
 }
 
 export type UsersActionTypes = followActionType | unfollowActionType | usersActionType
 
 
 let initialState: UsersPageType = {
-    users: [    {
-        id: 1,
-        photoUrl: 'https://pbs.twimg.com/profile_images/532806526100967424/FRU1oBvH.jpeg',
-        followed: true,
-        fullName: 'Alex',
-        status: 'study',
-        location: {city: 'Donskoy', country: 'Russia'}
-    },
-        {
-            id: 2,
-            photoUrl: 'https://pbs.twimg.com/profile_images/532806526100967424/FRU1oBvH.jpeg',
-            followed: false,
-            fullName: 'Dimych',
-            status: 'boss',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: 3,
-            photoUrl: 'https://pbs.twimg.com/profile_images/532806526100967424/FRU1oBvH.jpeg',
-            followed: true,
-            fullName: 'Vova',
-            status: 'job',
-            location: {city: 'Moscow', country: 'Russia'}
-        }]
+    users: []
 }
 
 
-const usersReducer = (state = initialState, action: UsersActionTypes) => {
+const usersReducer = (state = initialState, action: UsersActionTypes): UsersPageType => {
     let stateCopy
 
     switch (action.type) {
@@ -83,7 +65,7 @@ const usersReducer = (state = initialState, action: UsersActionTypes) => {
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, {...action.users}]
+                users: [...state.users, ...action.users]
             }
         default:
             return state;
@@ -101,7 +83,7 @@ export const unfollowAC = (userId: number): unfollowActionType => {
         userId
     }
 }
-export const setUsersAC = (users:UsersType): usersActionType => {
+export const setUsersAC = (users:UsersType[]): usersActionType => {
     return {
         type: SET_USERS,
         users
