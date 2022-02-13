@@ -1,52 +1,26 @@
 import React from "react";
 import s from './Users.module.css';
 import {UsersPropsType} from "./UsersContainer";
-import axios from "axios";
 import userPhoto from '../../assets/images/user.jpg'
 
-
-function Users(props: UsersPropsType) {
-
-const getUsers = () => {
-    if (props.users.length === 0) {
-
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            props.setUsers(response.data.items)
-        })
-        // props.setUsers([
-        //     {
-        //         id: 1,
-        //         photoUrl: 'https://pbs.twimg.com/profile_images/532806526100967424/FRU1oBvH.jpeg',
-        //         followed: true,
-        //         fullName: 'Alex',
-        //         status: 'study',
-        //         location: {city: 'Donskoy', country: 'Russia'}
-        //     },
-        //     {
-        //         id: 2,
-        //         photoUrl: 'https://pbs.twimg.com/profile_images/532806526100967424/FRU1oBvH.jpeg',
-        //         followed: false,
-        //         fullName: 'Dimych',
-        //         status: 'boss',
-        //         location: {city: 'Minsk', country: 'Belarus'}
-        //     },
-        //     {
-        //         id: 3,
-        //         photoUrl: 'https://pbs.twimg.com/profile_images/532806526100967424/FRU1oBvH.jpeg',
-        //         followed: true,
-        //         fullName: 'Vova',
-        //         status: 'job',
-        //         location: {city: 'Moscow', country: 'Russia'}
-        //     }
-        //
-        // ])
-    }
+type UsersPurePropsType = {
+    onPageChanged: (pageNumber: number)=> void
 }
+
+function Users(props: UsersPropsType & UsersPurePropsType) {
+
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
 
     return (
 
         <div className={s.users}>
-            <button onClick={getUsers}>Get users</button>
+
+
             {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
@@ -82,6 +56,17 @@ const getUsers = () => {
                     </span>
                 </span>
             </div>)}
+            <div>
+                {pages.map(p => {
+                    return <span className={props.currentPage === p ? s.selectedPage : ''}
+                                 onClick={() => {
+                                     props.onPageChanged(p)
+                                 }}>
+                        {p}-
+                    </span>
+                })}
+
+            </div>
         </div>
     )
 }
