@@ -1,5 +1,9 @@
+import profile from "../components/Profile/Profile";
+
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const ADD_POST = 'ADD_POST';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
+
 
 export type PostsType = {
     id: number
@@ -7,9 +11,35 @@ export type PostsType = {
     likesCount: number
 }
 
+type ContactsType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+
+type PhotosType = {
+    small: string
+    large: string
+}
+
+export type ProfileType = {
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotosType
+}
+
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
+    profile: ProfileType | null
 }
 
 export type AddPostActionType = {
@@ -22,8 +52,12 @@ export type UpdateNewPostTextActionType = {
     type: 'UPDATE_NEW_POST_TEXT'
     newText: string
 }
+export type setUserProfileActionType = {
+    type: 'SET_USER_PROFILE'
+    profile: ProfileType | null
+}
 
-export type ProfileActionTypes = AddPostActionType | UpdateNewPostTextActionType
+export type ProfileActionTypes = AddPostActionType | UpdateNewPostTextActionType | setUserProfileActionType
 
 
 let initialState: ProfilePageType = {
@@ -34,12 +68,13 @@ let initialState: ProfilePageType = {
         {id: 4, message: 'Hi sadfas sdgsg sg', likesCount: 112},
         {id: 5, message: 'Hi sadgsag hdfh d', likesCount: 2},
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: null
 }
 
 
 const profileReducer = (state = initialState, action: ProfileActionTypes) => {
-let stateCopy
+    let stateCopy
 
     switch (action.type) {
         case ADD_POST: {
@@ -48,22 +83,28 @@ let stateCopy
                 message: state.newPostText,
                 likesCount: 0
             }
-           stateCopy= {
+            stateCopy = {
                 ...state,
-               newPostText:'',
-               posts: [newPost, ...state.posts]
-           }
+                newPostText: '',
+                posts: [newPost, ...state.posts]
+            }
             return stateCopy;
         }
         case UPDATE_NEW_POST_TEXT: {
-            stateCopy= {...state, newPostText: action.newText}
+            stateCopy = {...state, newPostText: action.newText}
             return stateCopy
         }
+        case SET_USER_PROFILE: {
+
+            return {...state, profile: action.profile}
+        }
+
+
+        default:
+            return state;
     }
-
-
-    return state;
 }
+
 export const addPostActionCreator = (): AddPostActionType => {
     return {
         type: ADD_POST
@@ -72,6 +113,10 @@ export const addPostActionCreator = (): AddPostActionType => {
 
 export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType => {
     return {type: UPDATE_NEW_POST_TEXT, newText: text}
+}
+
+export const setUserProfile = (profile: ProfileType): setUserProfileActionType => {
+    return {type: SET_USER_PROFILE, profile}
 }
 
 export default profileReducer;

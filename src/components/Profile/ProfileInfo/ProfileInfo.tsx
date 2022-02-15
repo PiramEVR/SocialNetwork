@@ -1,16 +1,19 @@
 import React from "react";
 import s from './ProfileInfo.module.css';
+import Preloader from "../../../common/Preloader/Preloader";
+import {ProfileType} from "../../../redux/profileReducer";
 
-type PostPropsType = {
-    message: string;
-    like: number;
+type ProfileInfoPropsType = {
+    profile: ProfileType | null
 }
 
-function ProfileInfo(props: any) {
+function ProfileInfo(props: ProfileInfoPropsType) {
+    if(!props.profile) return <Preloader/>
+debugger
     return (
         <div className={s.content}>
-            <img src='https://vraki.net/sites/default/files/inline/images/16_11.jpeg'/>
-            <div>this is my page</div>
+            <img src={props.profile.photos.large}/>
+            description
         </div>
     )
 }
