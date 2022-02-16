@@ -9,10 +9,9 @@ type ProfileInfoPropsType = {
 
 function ProfileInfo(props: ProfileInfoPropsType) {
     if(!props.profile) return <Preloader/>
-debugger
     return (
-        <div className={s.content}>
-            <img src={props.profile.photos.large}/>
+        <div >
+            <img className={s.content} src={props.profile.photos.large}/>
             description
         </div>
     )
