@@ -4,6 +4,7 @@ const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS';
 
 type LocationType = {
     city?: string
@@ -30,6 +31,7 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    followingInProgress: boolean
 }
 
 export type followActionType = {
@@ -58,6 +60,10 @@ export type toggleIsFetchingActionType = {
     type: 'TOGGLE_IS_FETCHING'
     isFetching: boolean
 }
+export type toggleFollowingInProgressActionType = {
+    type: 'FOLLOWING_IN_PROGRESS'
+    followingInProgress: boolean
+}
 
 export type UsersActionTypes = followActionType
     | unfollowActionType
@@ -65,13 +71,15 @@ export type UsersActionTypes = followActionType
     | setCurrentPageActionType
     | setTotalUsersCountType
     | toggleIsFetchingActionType
+    | toggleFollowingInProgressActionType
 
 let initialState: UsersPageType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 2,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: false,
 }
 
 
@@ -108,6 +116,11 @@ const usersReducer = (state = initialState, action: UsersActionTypes): UsersPage
             return {
                 ...state,
                 isFetching: action.isFetching
+            }
+        case FOLLOWING_IN_PROGRESS:
+            return {
+                ...state,
+                followingInProgress: action.followingInProgress
             }
         default:
             return state;
@@ -147,6 +160,12 @@ export const toggleIsFetching = (isFetching: boolean): toggleIsFetchingActionTyp
     return {
         type: TOGGLE_IS_FETCHING,
         isFetching
+    }
+}
+export const toggleFollowingInProgress = (followingInProgress: boolean): toggleFollowingInProgressActionType => {
+    return {
+        type: FOLLOWING_IN_PROGRESS,
+        followingInProgress
     }
 }
 

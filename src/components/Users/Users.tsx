@@ -3,6 +3,7 @@ import s from './Users.module.css';
 import {UsersPropsType} from "./UsersContainer";
 import userPhoto from '../../assets/images/user.jpg'
 import {NavLink} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 type UsersPurePropsType = {
     onPageChanged: (pageNumber: number) => void
@@ -32,11 +33,24 @@ function Users(props: UsersPropsType & UsersPurePropsType) {
                         </NavLink>
                     </div>
                     <div>{u.followed
-                        ? <button onClick={() => {
-                            props.unfollow(u.id)
+                        ? <button disabled={props.followingInProgress} onClick={() => {
+                            props.toggleFollowingInProgress(true)
+                            usersAPI.unfollow(u.id).then(data => {
+                                if (data.resultCode === 0) {
+                                    props.unfollow(u.id)
+                                }
+                                props.toggleFollowingInProgress(false)
+                            })
+
                         }}>Unfollow</button>
-                        : <button onClick={() => {
-                            props.follow(u.id)
+                        : <button disabled={props.followingInProgress} onClick={() => {
+                            props.toggleFollowingInProgress(true)
+                            usersAPI.follow(u.id).then(data => {
+                                if (data.resultCode === 0) {
+                                    props.follow(u.id)
+                                }
+                                props.toggleFollowingInProgress(false)
+                            })
                         }}>Follow</button>}
                         </div>
                 </span>
