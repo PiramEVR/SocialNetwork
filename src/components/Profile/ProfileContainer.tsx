@@ -1,9 +1,8 @@
-import axios from "axios";
 import React from "react";
 import Profile from "./Profile";
 import {GlobalState} from "../../redux/redux-store";
-import { connect } from "react-redux";
-import {ProfileType, setUserProfile} from "../../redux/profileReducer";
+import {connect} from "react-redux";
+import {ProfileType, getUserProfile} from "../../redux/profileReducer";
 import {withRouter} from "../../common/withRouter/withRouter";
 
 type MatchParams = {
@@ -19,7 +18,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    setUserProfile: (profile: ProfileType)=> void
+    getUserProfile: (userId: string)=> void
 }
 
 type ownPropsType = {}
@@ -30,17 +29,17 @@ class ProfileContainer extends React.Component<ProfilePropsType & MatchParams> {
     componentDidMount() {
         let userId = this.props.match ? this.props.match.params.userId : '16808'
 
-
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`,{
-                withCredentials: true,
-                headers: {
-                    'API-KEY': '4e6e4d4f-bd28-4d92-9c35-ed06a9'
-                }
-            })
-            .then(response => {
-                this.props.setUserProfile(response.data)
-
-            })
+        this.props.getUserProfile(userId);
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`,{
+        //         withCredentials: true,
+        //         headers: {
+        //             'API-KEY': '4e6e4d4f-bd28-4d92-9c35-ed06a9'
+        //         }
+        //     })
+        //     .then(response => {
+        //         this.props.setUserProfile(response.data)
+        //
+        //     })
     }
 
     render() {
@@ -60,4 +59,4 @@ let mapStateToProps = (state: GlobalState): MapStatePropsType => {
 
 
 
-export default connect(mapStateToProps, { setUserProfile }) (withRouter(ProfileContainer));
+export default connect(mapStateToProps, { getUserProfile }) (withRouter(ProfileContainer));

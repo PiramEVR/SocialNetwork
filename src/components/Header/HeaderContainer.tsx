@@ -1,8 +1,7 @@
-import axios from "axios";
 import React from "react";
 import Header from "./Head";
-import {setUserData} from "../../redux/authReducer";
-import { connect } from "react-redux";
+import {getAuthUserData} from "../../redux/authReducer";
+import {connect} from "react-redux";
 import {GlobalState} from "../../redux/redux-store";
 
 type mapStatePropsType = {
@@ -10,30 +9,28 @@ type mapStatePropsType = {
     login: string
 }
 type mapDispatchPropsType = {
-    setUserData:(userId: number, email: string, login: string)=>void
+    getAuthUserData: () => void
 }
 
-type HeaderContainerType= mapStatePropsType & mapDispatchPropsType
+type HeaderContainerType = mapStatePropsType & mapDispatchPropsType
 
 class HeaderContainer extends React.Component<HeaderContainerType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(response => {
-             if(response.data.resultCode === 0) {
-                 let {id, login, email} =response.data.data;
-                 this.props.setUserData(id, email, login)
-             }
-            })
+        // authAPI.me().then(response => {
+        //     if (response.data.resultCode === 0) {
+        //         let {id, login, email} = response.data.data;
+        //         this.props.setUserData(id, email, login)
+        //     }
+        // })
+        this.props.getAuthUserData()
     }
 
     render() {
-        return <Header isAuth={this.props.auth} login={this.props.login} />
+        return <Header isAuth={this.props.auth} login={this.props.login}/>
     }
 }
 
-const mapStateToProps = (state: GlobalState): mapStatePropsType  => {
+const mapStateToProps = (state: GlobalState): mapStatePropsType => {
     return {
         auth: state.auth.isAuth,
         login: state.auth.login,
@@ -41,4 +38,4 @@ const mapStateToProps = (state: GlobalState): mapStatePropsType  => {
 
 }
 
-export default connect(mapStateToProps, {setUserData}) (HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer);
