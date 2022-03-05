@@ -14,6 +14,8 @@ import {GlobalState} from "./redux/redux-store";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
+import FriendsContainer from "./components/Friends/FriendsContainer";
 
 export type ActionsAllType = ProfileActionTypes | DialogsActionTypes
 
@@ -39,7 +41,8 @@ function App(props: AppPropsType) {
                     <Route path='/News' element={<News/>}/>
                     <Route path='/Music' element={<Music/>}/>
                     <Route path='/Settings' element={<Settings/>}/>
-                    <Route path='/Friends' element={<Friends dialogsPage={props.state.dialogsPage}/>}/>
+                    <Route path='/Friends' element={<FriendsContainer />}/>
+                    <Route path='/Login' element={<Login/>}/>
                 </Routes>
             </div>
         </div>

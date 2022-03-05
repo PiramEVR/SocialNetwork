@@ -51,6 +51,7 @@ export type usersActionType = {
     type: 'SET_USERS'
     users: UsersType[]
 }
+
 export type setCurrentPageActionType = {
     type: 'SET_CURRENT_PAGE'
     currentPage: number
@@ -105,6 +106,7 @@ const usersReducer = (state = initialState, action: UsersActionTypes): UsersPage
                 ...state,
                 users: [...action.users]
             }
+
         case SET_CURRENT_PAGE:
             return {
                 ...state,
@@ -138,6 +140,7 @@ export const unfollowSuccess = (userId: number): unfollowActionType => ({
 export const setUsers = (users: UsersType[]): usersActionType => ({
     type: SET_USERS, users
 })
+
 export const setCurrentPage = (currentPage: number): setCurrentPageActionType => ({
     type: SET_CURRENT_PAGE, currentPage
 })
@@ -160,6 +163,8 @@ export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Di
         dispatch(setTotalUsersCount(data.totalCount))
     })
 }
+
+
 
 export const follow = (userId: number) => (dispatch: Dispatch<any>) => {
     dispatch(toggleFollowingInProgress(true))

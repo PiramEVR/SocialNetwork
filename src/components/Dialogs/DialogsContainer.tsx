@@ -1,7 +1,7 @@
 import React, {Dispatch} from "react";
 import {connect} from "react-redux";
 import {
-    addMessageActionCreator, DialogsActionTypes,
+    addMessageActionCreator, DialogsActionTypes, DialogsPageType,
     updateNewMessageActionCreator
 } from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
@@ -32,9 +32,15 @@ import {GlobalState} from "../../redux/redux-store";
 //     )
 // }
 
-let mapStateToProps = (state: GlobalState) => {
+type mapStatePropsType = {
+    dialogsPage: DialogsPageType
+    isAuth: boolean
+}
+
+let mapStateToProps = (state: GlobalState): mapStatePropsType => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth: state.auth.isAuth
     }
 }
 

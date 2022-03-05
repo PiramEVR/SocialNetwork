@@ -2,12 +2,14 @@ import React from "react";
 import s from './Dialogs.module.css'
 import Messages from "./Messsages/Messages";
 import {DialogsPageType} from "../../redux/dialogsReducer";
+import {Navigate} from "react-router-dom";
 
 
 export type DialogsPropsType = {
     dialogsPage: DialogsPageType
     onMessageChange: (text: string) => void
     newMessage: () => void
+    isAuth: boolean
 }
 
 function Dialogs(props: DialogsPropsType) {
@@ -15,6 +17,10 @@ function Dialogs(props: DialogsPropsType) {
         key={d.id}
         name={d.name}
         message={d.message} id={d.id}/>);
+    if (!props.isAuth) {
+        return <Navigate to={"/login"}/>
+    }
+
     return (
 
         <div className={s.dialogs}>

@@ -37,7 +37,10 @@ function Navbar() {
             </div>
             <div className={`${s.link} ${s.active}`}>
                 <NavLink className={navData => navData.isActive ? s.active : s.item} to='/Friends'>
-                    Friends
+                    <div>
+                        Friends
+
+                    </div>
                 </NavLink>
             </div>
         </nav>

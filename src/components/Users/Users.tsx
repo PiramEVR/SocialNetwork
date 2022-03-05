@@ -5,11 +5,11 @@ import userPhoto from '../../assets/images/user.jpg'
 import {NavLink} from "react-router-dom";
 import {usersAPI} from "../../api/api";
 
-type UsersPurePropsType = {
+export type PagesPropsType = {
     onPageChanged: (pageNumber: number) => void
 }
 
-function Users(props: UsersPropsType & UsersPurePropsType) {
+function Users(props: UsersPropsType & PagesPropsType) {
 
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 

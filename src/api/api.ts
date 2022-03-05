@@ -15,6 +15,10 @@ export const usersAPI = {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then(response => response.data)
     },
+    subscriptions: (id: number) => {
+        return instance.get(`follow/${id}`)
+            .then(response => response.data)
+    },
 
     follow: (id: number) => {
         return instance.post(`follow/${id}`)
@@ -28,11 +32,10 @@ export const usersAPI = {
         return instance.get(`profile/${userId}`)
     }
 }
-type setUserDataType = (userId: number, email: string, login: string) => void
 
 export const authAPI = {
     me: () => {
         return instance.get(`auth/me`)
-            }
     }
+}
 
