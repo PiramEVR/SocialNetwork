@@ -16,6 +16,7 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
 import FriendsContainer from "./components/Friends/FriendsContainer";
+import Basic from "./components/Login/LoginWithFormik";
 
 export type ActionsAllType = ProfileActionTypes | DialogsActionTypes
 
@@ -43,6 +44,7 @@ function App(props: AppPropsType) {
                     <Route path='/Settings' element={<Settings/>}/>
                     <Route path='/Friends' element={<FriendsContainer />}/>
                     <Route path='/Login' element={<Login/>}/>
+                    {/*<Route path='/LoginFormik' element={<Basic/>}/>*/}
                 </Routes>
             </div>
         </div>

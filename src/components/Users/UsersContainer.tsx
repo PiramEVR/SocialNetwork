@@ -4,6 +4,7 @@ import {GlobalState} from "../../redux/redux-store";
 import {follow, getUsers, setCurrentPage, unfollow, UsersType} from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../../common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/WithAuthRedirect";
 
 
 type MapStatePropsType = {
@@ -101,7 +102,7 @@ const mapStateToProps = (state: GlobalState): MapStatePropsType => {
 // }
 //
 
-
+const AuthRedirectComponent  = withAuthRedirect(UsersClass)
 export default connect(mapStateToProps,
     {
         follow,
@@ -112,4 +113,4 @@ export default connect(mapStateToProps,
         // setTotalUsersCount,
         // toggleIsFetching,
         // toggleFollowingInProgress,
-    })(UsersClass);
+    })(AuthRedirectComponent);
