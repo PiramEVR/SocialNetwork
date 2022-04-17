@@ -37,6 +37,7 @@ class ProfileContainer extends React.Component<ProfilePropsType & MatchParams> {
 
         this.props.getUserProfile(userId);
         this.props.getUserStatus(userId);
+        // this.props.updateUserStatus(status);
 
 
         // axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`,{
@@ -52,7 +53,9 @@ class ProfileContainer extends React.Component<ProfilePropsType & MatchParams> {
     }
 
     render() {
-
+        if(!this.props.isAuth) {
+            return <Navigate  to={"/login"}/>
+        }
         return (
             <div>
                 <Profile {...this.props}
@@ -75,6 +78,6 @@ let mapStateToProps = (state: GlobalState): MapStatePropsType => {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile, getUserStatus, updateUserStatus}),
-    withAuthRedirect,
+    // withAuthRedirect,
     withRouter
 )(ProfileContainer);
